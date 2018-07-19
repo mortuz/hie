@@ -74,34 +74,37 @@
 
       <div class="row">
         <div class="col-md-8 offset-md-2">
-          <form action="" method="post">
+          <form class="contact-form">
             <div class="form-row mt-3">
               <div class="form-group col-md-6">
                 <label for="fname">First name*</label>
-                <input type="text" class="form-control" id="fname" placeholder="First name">
+                <input type="text" name="first-name" class="form-control" id="fname" placeholder="First name">
               </div>
               <div class="form-group col-md-6">
                   <label for="lname">Last name*</label>
-                  <input type="text" class="form-control" id="lname" placeholder="Last name">
+                  <input type="text" name="last-name" class="form-control" id="lname" placeholder="Last name">
               </div>
             </div>
 
             <div class="form-group mt-3">
               <label for="email">Email*</label>
-              <input type="email" class="form-control" id="email" placeholder="Email">
+              <input type="email" name="email" class="form-control" id="email" placeholder="Email">
             </div>
 
             <div class="form-group mt-3">
               <label for="subject">Subject*</label>
-              <input type="subject" class="form-control" id="subject" placeholder="subject">
+              <input type="subject" name="subject" class="form-control" id="subject" placeholder="subject">
             </div>
 
             <div class="form-group mt-3">
               <label for="msg">Message*</label>
-              <textarea name="msg" id="msg" rows="4" class="form-control"></textarea>
+              <textarea name="message" id="msg" rows="4" class="form-control"></textarea>
             </div>
 
             <input type="submit" class="btn btn-primary btn-submit"  value="Submit">
+            <input type="hidden" name="apiKey" value="16ahecoCP0ed3GQq">
+
+            <p class="text-primary font-weight-bold d-block mt-3" id="feedback-block">&nbsp;</p>
 
           </form>
         </div>
@@ -206,8 +209,7 @@
 
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
     crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
@@ -224,6 +226,45 @@
         autoplayTimeout: 5000,
         autoplayHoverPause: true,
         smartSpeed: 350
+      });
+
+      // contact form submit
+      $('.btn-submit').on('click', function(e) {
+        e.preventDefault();
+        
+        $form = $('.contact-form'),
+        $feedbackBlock = $('#feedback-block'),
+        data = $form.serialize();
+
+        // return;
+        $.ajax({
+          type: "POST",
+          contentType: 'application/x-www-form-urlencoded',
+          url: "//icoinguru.com",
+          crossDomain: true,
+          dataType: 'json',
+          data: data,
+          success: function (data) {
+            
+            $feedbackBlock.html("<span>Thank you contacting us. We will reach you very soon</span>")
+              .hide()
+              .fadeIn(1500);
+            $form.trigger("reset");
+              
+          },
+          error: function (err) {
+            console.log("CONNECT FORMLY ERR: ", err);
+          }
+        })
+        .done(function() {
+           $feedbackBlock = $('#feedback-block');
+          setTimeout(function () {
+            $feedbackBlock.fadeOut(1500);
+            setTimeout(function() {
+              $feedbackBlock.html('&nbsp;');
+            }, 1500);
+          }, 5000);
+        });
       })
     </script>
 </body>
