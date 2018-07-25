@@ -21,7 +21,7 @@ body {
     background-size: cover;
 }
 .item.item3 {
-    background: url('../images/slide1.jpeg') no-repeat top center;
+    background: url('../images/slide1.jpeg') no-repeat center center;
     background-size: cover;
 }
 .item.item4 {
@@ -62,10 +62,10 @@ body {
     background-size: cover;
 }
 
-.item.item13 {
+/* .item.item13 {
     background: url('../images/slide11.jpeg') no-repeat center center;
     background-size: cover;
-}
+} */
 
 
 .home-splash h1 {
