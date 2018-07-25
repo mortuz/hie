@@ -21,7 +21,7 @@ body {
     background-size: cover;
 }
 .item.item3 {
-    background: url('../images/slide1.jpeg') no-repeat center center;
+    background: url('../images/slide1.jpeg') no-repeat top center;
     background-size: cover;
 }
 .item.item4 {
